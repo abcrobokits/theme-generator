@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PokeyBot Theme Generator</title>
+<style>
+:root{--bg:#14161b;--card:#1f232b;--text:#f4f4f6;--mut:#a9afbb;--or:#ff7a1a;--gr:#2ecc71;--bl:#3b82f6;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f4f5f8;--card:#fff;--text:#14161b;--mut:#5b6270}}
+:root[data-theme="dark"]{--bg:#14161b;--card:#1f232b;--text:#f4f4f6;--mut:#a9afbb}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;padding:20px}
+.wrap{max-width:720px;margin:0 auto}
+h1{font-size:1.8rem;margin:0 0 4px;color:var(--or)}
+p.sub{color:var(--mut);margin:0 0 20px}
+.slot{background:var(--card);border-radius:14px;padding:16px 18px;margin-bottom:12px;border-left:6px solid var(--or);display:flex;align-items:center;gap:12px}
+.slot:nth-child(2){border-color:var(--bl)}.slot:nth-child(3){border-color:var(--gr)}
+.slot .body{flex:1;min-width:0}
+.label{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+.val{font-size:1.5rem;font-weight:800;margin-top:2px;overflow-wrap:anywhere}
+.slot.spin .val{opacity:.5}
+button{font:inherit;cursor:pointer;border:0;border-radius:10px}
+.re{background:transparent;color:var(--mut);border:2px solid var(--mut);padding:8px 10px;font-size:.85rem}
+.re:hover{color:var(--text);border-color:var(--text)}
+.go{width:100%;background:var(--or);color:#fff;font-size:1.3rem;font-weight:800;padding:16px;margin:6px 0 18px}
+.go:active{transform:scale(.98)}
+.note{background:var(--card);border-radius:14px;padding:16px 18px;border-left:6px solid var(--gr)}
+.note b{color:var(--gr)}
+.note ul{margin:8px 0 0;padding-left:20px;color:var(--mut)}
+.row{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.row label{color:var(--mut);font-size:.9rem;display:flex;align-items:center;gap:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🎈 PokeyBot Theme Generator</h1>
+  <p class="sub">Spin for a theme, a style, and a design challenge for your custom chassis.</p>
+
+  <div id="slots">
+    <div class="slot" data-k="theme"><div class="body"><div class="label">Theme</div><div class="val">?</div></div><button class="re" aria-label="Re-roll theme">Re-roll</button></div>
+    <div class="slot" data-k="style"><div class="body"><div class="label">Style</div><div class="val">?</div></div><button class="re" aria-label="Re-roll style">Re-roll</button></div>
+    <div class="slot" data-k="twist"><div class="body"><div class="label">Design challenge</div><div class="val">?</div></div><button class="re" aria-label="Re-roll challenge">Re-roll</button></div>
+  </div>
+
+  <button class="go" id="go">🎲 Spin All</button>
+
+  <div class="note">
+    <b>Next step: engineering notebook</b>
+    <ul>
+      <li>Sketch 3 different ways your chassis could show this theme.</li>
+      <li>Which sketch still works with the constraints of your build? Why?</li>
+    </ul>
+    <p style="color:var(--mut);margin:10px 0 0;font-size:.9rem">Not feeling it? Re-roll one slot, but you must write why in your notebook before you re-roll again.</p>
+  </div>
+</div>
+
+<script>
+var D={
+theme:["Pirate ship","Deep-sea creature","Space rover","Dragon","Medieval castle","Dinosaur","Jungle explorer","Haunted house","Superhero sidekick","Robot from the future","Ancient Egypt","Viking longship","Underwater submarine","Racing legend","Wild West","Arctic expedition","Candy factory","Ninja","Volcano","Mythical creature","Circus","Steampunk machine","Insect","Retro arcade"],
+style:["Bold and loud","Sleek and simple","Spiky and fierce","Cute and friendly","Weathered and rugged","Shiny and futuristic","Hand-built workshop look","Mysterious and dark","Bright and playful","Heavy armor"],
+twist:["Show your theme in at least 3 visible details","Use only 2 colors","Give your bot a name and a mascot feature","Make the front look like a face","Hide a surprise detail underneath","Make it symmetrical","Make it look fast while standing still","Design it so another team could guess your theme in 5 seconds","Add one detail that is also useful for popping balloons","Make the silhouette instantly recognizable from above","Design the back as carefully as the front","Add a tiny backstory for your bot in your notebook"]
+};
+var slots=[].slice.call(document.querySelectorAll(".slot"));
+function pick(k){var a=D[k],cur=document.querySelector('[data-k="'+k+'"] .val').textContent,v;do{v=a[Math.floor(Math.random()*a.length)]}while(v===cur&&a.length>1);return v}
+function roll(el,delay){var k=el.dataset.k,val=el.querySelector(".val"),n=0;el.classList.add("spin");
+  var t=setInterval(function(){val.textContent=D[k][Math.floor(Math.random()*D[k].length)];if(++n>8){clearInterval(t);val.textContent=pick(k);el.classList.remove("spin")}},70+delay)}
+document.getElementById("go").onclick=function(){slots.forEach(function(s,i){roll(s,i*25)})};
+slots.forEach(function(s){s.querySelector(".re").onclick=function(){roll(s,0)}});
+</script>
+</body>
+</html>
