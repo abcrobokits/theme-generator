@@ -39,7 +39,6 @@ button{font:inherit;cursor:pointer;border:0;border-radius:10px}
   <div id="slots">
     <div class="slot" data-k="theme"><div class="body"><div class="label">Theme</div><div class="val">?</div></div><button class="re" aria-label="Re-roll theme">Re-roll</button></div>
     <div class="slot" data-k="style"><div class="body"><div class="label">Style</div><div class="val">?</div></div><button class="re" aria-label="Re-roll style">Re-roll</button></div>
-    <div class="slot" data-k="twist"><div class="body"><div class="label">Design challenge</div><div class="val">?</div></div><button class="re" aria-label="Re-roll challenge">Re-roll</button></div>
   </div>
 
   <button class="go" id="go">🎲 Spin All</button>
@@ -56,9 +55,8 @@ button{font:inherit;cursor:pointer;border:0;border-radius:10px}
 
 <script>
 var D={
-theme:["Pirate ship","Deep-sea creature","Space rover","Dragon","Medieval castle","Dinosaur","Jungle explorer","Haunted house","Superhero sidekick","Robot from the future","Ancient Egypt","Viking longship","Underwater submarine","Racing legend","Wild West","Arctic expedition","Candy factory","Ninja","Volcano","Mythical creature","Circus","Steampunk machine","Insect","Retro arcade"],
-style:["Bold and loud","Sleek and simple","Spiky and fierce","Cute and friendly","Weathered and rugged","Shiny and futuristic","Hand-built workshop look","Mysterious and dark","Bright and playful","Heavy armor"],
-twist:["Show your theme in at least 3 visible details","Use only 2 colors","Give your bot a name and a mascot feature","Make the front look like a face","Hide a surprise detail underneath","Make it symmetrical","Make it look fast while standing still","Design it so another team could guess your theme in 5 seconds","Add one detail that is also useful for popping balloons","Make the silhouette instantly recognizable from above","Design the back as carefully as the front","Add a tiny backstory for your bot in your notebook"]
+theme:["Pirate ship","Deep-sea creature","Space rover","Dragon","Medieval jouster","Dinosaur","Ghost","Superhero","Robot from the future","Mummy's Tomb","Viking longship","Underwater submarine","Race car","Horse","Candy","Ninja","Volcano","Mythical creature","Clown","Train","Insect"],
+style:["Bold and loud","Sleek and simple","Spiky and fierce","Cute and friendly","Futuristic","Mysterious and dark","Bright and playful"],
 };
 var slots=[].slice.call(document.querySelectorAll(".slot"));
 function pick(k){var a=D[k],cur=document.querySelector('[data-k="'+k+'"] .val').textContent,v;do{v=a[Math.floor(Math.random()*a.length)]}while(v===cur&&a.length>1);return v}
